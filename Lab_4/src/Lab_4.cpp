@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//объявить функции, используемые в данной программе
 void printHelp();
 void addNewPair(string key, string val, vector<pair<string, string>>& array);
 void deletePair(string key, vector<pair<string, string>>& array);
@@ -30,11 +31,13 @@ void printHelp() {
     cout << "Enter 9 to swap key and value\n";
 }
 
+// Добавить новую пару в базу.
 // Add a new pair into the database
 void addNewPair(string key, string val, vector<pair<string, string>>& array) {
     array.push_back({key, val});
 }
 
+// Удалить пару в базе
 // Delete a pair in the dictionary
 void deletePair(string key, vector<pair<string, string>>& array) {
     for (int i = 0; i < (int)array.size(); i++) {
@@ -45,6 +48,7 @@ void deletePair(string key, vector<pair<string, string>>& array) {
     }
 }
 
+// Проверка существующей пары
 // Check an existing pair
 bool checkPair(string key, vector<pair<string,string>>& array) {
     bool flag = false;
@@ -57,6 +61,7 @@ bool checkPair(string key, vector<pair<string,string>>& array) {
     return flag;
 }
 
+// Выводить список пары, у ключего слова которого есть меньше 5 символов.
 // Print list of words that have lenght less than 5 symbols
 void printList(vector<pair<string,string>>& array) {
     for (int i = 0; i < (int)array.size(); i++) {
@@ -65,11 +70,13 @@ void printList(vector<pair<string,string>>& array) {
     }
 }
 
+// Очистить словарь
 // Clear the dictionary
 void clearDict(vector<pair<string,string>>& array) {
     array.clear();
 }
 
+// Сортировать словарь
 // Sort the dictionary
 void sortDict(vector<pair<string,string>>& array) {
     pair<string,string> temp;
@@ -84,6 +91,7 @@ void sortDict(vector<pair<string,string>>& array) {
     }
 }
 
+// Выводить весь словарь
 // Print the whole dictionary
 void printDict(vector<pair<string, string>>& array) {
     for (int i = 0; i < (int)array.size(); i++)
@@ -92,6 +100,7 @@ void printDict(vector<pair<string, string>>& array) {
     cout << endl;
 }
 
+// Изменять пары
 // Change the pair
 void changePair(string key, string newVal, vector<pair<string,string>>& array) {
 	for (int i = 0; i < (int)array.size(); i++) {
@@ -102,6 +111,7 @@ void changePair(string key, string newVal, vector<pair<string,string>>& array) {
 	}
 }
 
+// Обменять ключом и значением.
 // Swap the key and the value
 void swapKeyVal(string key, vector<pair<string,string>>& array) {
 	string temp;
