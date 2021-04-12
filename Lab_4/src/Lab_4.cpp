@@ -128,6 +128,7 @@ void swapKeyVal(string key, vector<pair<string,string>>& array) {
 
 int main() {
 	printHelp();
+	setlocale(0, "Rus");
 
     vector<pair<string, string>> database;
 
