@@ -11,22 +11,23 @@
 #include <fstream>
 using namespace std;
 
-//объявить функции, используемые в данной программе
-void printHelp();
-template <class T> void addNewPair(string key, string val, T& dict);
-template <class T> void deletePair(string key, T & dict);
-template <class T> bool checkPair(string key, T& dict);
-template <class T> void printList(T& dict);
-template <class T> void clearDict(T& dict);
-template <class T> void sortDict(T& dict);
-template <class T> void printDict(T& dict);
-template <class T> void changePair(string key, string newVal, T& dict);
-template <class T> void swapKeyVal(string key, T& dict);
+
 
 struct Word{
 	string key;
 	string val;
 };
+//объявить функции, используемые в данной программе
+void printHelp();
+void addNewPair(string key, string val, vector<Word>& dict);
+void deletePair(string key, vector<Word>& dict);
+bool checkPair(string key, vector<Word>& dict);
+void printList(vector<Word>& dict);
+void clearDict(vector<Word>& dict);
+void sortDict(vector<Word>& dict);
+void printDict(vector<Word>& dict);
+void changePair(string key, string newVal, vector<Word>& dict);
+void swapKeyVal(string key, vector<Word>& dict);
 
 void printHelp() {
     cout << "WELCOME TO A SIMPLE DICTIONARY!!!\n";
@@ -43,15 +44,13 @@ void printHelp() {
 
 // Добавить новую пару в базу.
 // Add a new pair into the Dict
-template <class T>
-void addNewPair(string key, string val, T& dict) {
+void addNewPair(string key, string val, vector<Word>& dict) {
     dict.push_back({key, val});
 }
 
 // Удалить пару в базе
 // Delete a pair in the dictionary
-template <class T>
-void deletePair(string key, T & dict) {
+void deletePair(string key, vector<Word>& dict) {
     for (int i = 0; i < (int)dict.size(); i++) {
         if (key.compare(dict[i].key) == 0) {
             dict.erase(dict.begin() + i);
@@ -62,8 +61,7 @@ void deletePair(string key, T & dict) {
 
 // Проверка существующей пары
 // Check an existing pair
-template <class T>
-bool checkPair(string key, T& dict) {
+bool checkPair(string key, vector<Word>& dict) {
     bool flag = false;
     for (int i = 0; i < (int)dict.size(); i++) {
         if (key.compare(dict[i].key) == 0) {
@@ -76,8 +74,7 @@ bool checkPair(string key, T& dict) {
 
 // Выводить список пары, у ключего слова которого есть меньше 5 символов.
 // Print list of words that have lenght less than 5 symbols
-template <class T>
-void printList(T& dict) {
+void printList(vector<Word>& dict) {
     for (int i = 0; i < (int)dict.size(); i++) {
         if (dict[i].key.size() < 5)
             cout << dict[i].key << " => " << dict[i].val << endl;
@@ -86,15 +83,13 @@ void printList(T& dict) {
 
 // Очистить словарь
 // Clear the dictionary
-template <class T>
-void clearDict(T& dict) {
+void clearDict(vector<Word>& dict) {
     dict.clear();
 }
 
 // Сортировать словарь
 // Sort the dictionary
-template <class T>
-void sortDict(T& dict) {
+void sortDict(vector<Word>& dict) {
     Word temp;
     for (int i = 0; i < (int)dict.size(); i++) {
         for(int j=0; j < (int)(dict.size() - 1); j++) {
@@ -110,8 +105,7 @@ void sortDict(T& dict) {
 
 // Выводить весь словарь
 // Print the whole dictionary
-template <class T>
-void printDict(T& dict) {
+void printDict(vector<Word>& dict) {
     for (int i = 0; i < (int)dict.size(); i++)
         cout << dict[i].key << " => " << dict[i].val << endl;
 
@@ -120,8 +114,7 @@ void printDict(T& dict) {
 
 // Изменять пары
 // Change the pair
-template <class T>
-void changePair(string key, string newVal, T& dict) {
+void changePair(string key, string newVal, vector<Word>& dict) {
 	for (int i = 0; i < (int)dict.size(); i++) {
 		if (key.compare(dict[i].key) == 0) {
 			dict[i].val = newVal;
@@ -132,8 +125,7 @@ void changePair(string key, string newVal, T& dict) {
 
 // Обменять ключом и значением.
 // Swap the key and the value
-template <class T>
-void swapKeyVal(string key, T& dict) {
+void swapKeyVal(string key, vector<Word>& dict) {
 	string temp;
 	for (int i = 0; i < (int)dict.size(); i++) {
 		if (key.compare(dict[i].key) == 0) {
