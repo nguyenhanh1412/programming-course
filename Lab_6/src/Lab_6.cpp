@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <string>
 using namespace std;
 
 
@@ -25,7 +26,7 @@ bool checkPair(string key, vector<Word>& dict);
 void printList(vector<Word>& dict);
 void clearDict(vector<Word>& dict);
 void sortDict(vector<Word>& dict);
-void printDict(vector<Word>& dict);
+//void printDict(vector<Word>& dict);
 void changePair(string key, string newVal, vector<Word>& dict);
 void swapKeyVal(string key, vector<Word>& dict);
 
@@ -72,6 +73,7 @@ bool checkPair(string key, vector<Word>& dict) {
     return flag;
 }
 
+
 // Выводить список пары, у ключего слова которого есть меньше 5 символов.
 // Print list of words that have lenght less than 5 symbols
 void printList(vector<Word>& dict) {
@@ -102,15 +104,15 @@ void sortDict(vector<Word>& dict) {
     }
 }
 
-
 // Выводить весь словарь
 // Print the whole dictionary
-void printDict(vector<Word>& dict) {
+/*void printDict(vector<Word>& dict) {
     for (int i = 0; i < (int)dict.size(); i++)
         cout << dict[i].key << " => " << dict[i].val << endl;
-
     cout << endl;
-}
+	//outputFile (key, val, Dict);
+
+}*/
 
 // Изменять пары
 // Change the pair
@@ -136,13 +138,25 @@ void swapKeyVal(string key, vector<Word>& dict) {
 		}
 	}
 }
+void outputFile(string key, string val, vector<Word>& dict){
+	ofstream file;
+	file.open("output.txt", ios::app);
+	for(int i=0; i < (int)dict.size(); i++){
+		file << dict[i].key <<": ";
+		file << dict[i].val << endl;
+	}
+	file.close();
+}
 
 int main() {
 	printHelp();
 	vector<Word> Dict;
 	fstream text;
-	text.open("D:/eclipse-workspace/Lab_6/text.txt");
+	text.open("D:/eclipse-workspace/Lab_6/input.txt");
 
+	// Create and open a text file
+	ofstream MyFile("output.txt", ios::app);
+	//MyFile.open("output.txt", ios::app);
 	//string line;
 	string key;
 	string val;
@@ -169,60 +183,87 @@ int main() {
     		cout << "Enter a value: ";
     		cin >> val;
     		addNewPair(key, val, Dict);
-    		printDict(Dict);
+
+    		//MyFile << "Add a new pair" << endl;
+    		outputFile (key, val, Dict);
+    		//printDict(Dict);
     		cout << endl;
     		break;
+
     	case 2:
+    		//clearDict(Dict);
     		// Delete an existing pair
     		cout << "Enter a key: ";
     		cin >> key;
     		deletePair(key, Dict);
-    		printDict(Dict);
+    		outputFile (key, val, Dict);
+
+    		//printDict(Dict);
     		cout << endl;
     		break;
     	case 3:
+    		//
     		// Cheking a pair
     		cout << "Enter a key: ";
     		cin >> key;
     		if (checkPair(key, Dict)) {
-    			cout << "This pair was found\n";
+    			MyFile << "This pair was found" << endl;
+    			//MyFile.close();
     		}else{
-    			cout<<"This pair was not found\n";
+    			MyFile << "This pair was not found" <<endl;
+    			//MyFile.close();
     		}
     		break;
     	case 4:
+    		//clearDict(Dict);
+
     		// Print a list of words that have lenght less than 5
     		printList(Dict);
+    		outputFile (key, val, Dict);
     		break;
     	case 5:
     		//Clear dictionary
     		clearDict(Dict);
-    		printDict(Dict);
+    		//MyFile << "Clear dictionary" <<endl;
+    		outputFile (key, val, Dict);
+    		//printDict(Dict);
     		break;
     	case 6:
+    		//clearDict(Dict);
     		// Sort Dictionary
     		sortDict(Dict);
-    		printDict(Dict);
+    		//MyFile << "Sort Dictionary" <<endl;
+    		outputFile (key, val, Dict);
+    		//printDict(Dict);
     		break;
     	case 7:
+    		//clearDict(Dict);
     		//Print dictionary
-    		printDict(Dict);
+    		//printDict(Dict);
+    		//MyFile << "Print dictionary" <<endl;
+    		outputFile (key, val, Dict);
     		break;
     	case 8:
+    		clearDict(Dict);
     		//Change a pair
     		cout << "Enter a key: ";
     		cin >> key;
     		cout << "Enter new value: ";
     		cin >> val;
     		changePair(key,val, Dict);
-    		printDict(Dict);
+    		//MyFile << "Change a pair" <<endl;
+    		outputFile (key, val, Dict);
+    		//printDict(Dict);
     		break;
     	case 9:
+    		clearDict(Dict);
+
     		//Swap Key and Value
     		cout << "Enter a key:";
     		cin >> key;
     		swapKeyVal(key, Dict);
-    		printDict(Dict);
+    		//MyFile << "Swap Key and Value" <<endl;
+    		outputFile (key, val, Dict);
     		break;
     	default:
     		printHelp();

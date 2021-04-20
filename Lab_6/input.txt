@@ -9,4 +9,4 @@ goat коза
 monkey обезьяна
 chicken петух
 dog собака
-pig свинья
+pig свинина

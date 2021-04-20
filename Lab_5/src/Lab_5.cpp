@@ -73,7 +73,7 @@ int main(){
 	cout << endl;
 
 	int num;
-	cout << "Enter a number: ";
+	cout << "Enter a number: ";```
 	cin >> num;
 
 	int n = numArr.size();

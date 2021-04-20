@@ -1,31 +1,47 @@
-#include <iostream>
-#include <string>
-#include <fstream>  // (1)
-
+#include<iostream>
+#include<vector>
+#include<string>
+#include<fstream>
 using namespace std;
+
+// write vector v to text.txt
+void write(vector<string> v){
+	ofstream file;
+	file.open("text.txt");
+	for(int i=0;i<v.size();++i){
+		file<<v[i]<<endl;
+	}
+	file.close();
+}
+
+// read data from from text.txt and store it in vector v
+void read(vector<string> &v){
+	ifstream file;
+	file.open("text.txt");
+	string line;
+	while(getline(file, line)){
+		v.push_back(line);
+	}
+	file.close();
+}
 
 int main()
 {
-	int arr[100];
-	int n;
-	cout <<"so luong hoa:";
-	cin >> n;
-	cout<<"thu tu hoa";
-	for(int i = 0; i < n; i++){
-		cin >> arr[i];
-	}
-	int c, c_max;
-	c = 1;
-	c_max = 0;
-	for(int i = 0; i < n; i++){
-		if(arr[i] == arr[i+1]){
-			c++;
-		}
-	}
-	cout<<"nnn";
-	c_max = c;
-	cout << c_max;
+	vector<string> v  = {"My", "name", "is", "Hong", "Hanh"};
+	cout<<"Vector: ";
+	for(int i=0;i<v.size();++i)
+		cout<<v[i]<<" ";
+	cout<<endl;
 
+	//  writing v to file "text.txt"
+	write(v);
+
+	/*vector<string> temp;
+	// reading vector from "text.txt" and storing data in temp
+	read(temp);
+	cout<<"Vector After Reading from File: ";
+	for(int i=0;i<temp.size();++i)
+		cout<<temp[i]<<" ";
+	cout<<endl;*/
 
 }
-
