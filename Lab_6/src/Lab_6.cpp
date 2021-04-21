@@ -253,7 +253,6 @@ int main() {
     		outputFile (key, val, Dict);
     		break;
     	case 8:
-    		clearDict(Dict);
     		//Change a pair
     		cout << "Enter a key: ";
     		cin >> key;
@@ -261,16 +260,12 @@ int main() {
     		cin >> val;
     		changePair(key,val, Dict);
     		MyFile << endl << "++ Change a pair" <<endl;
-			cout << "aaaaa";
-			printDict(Dict);
-			cout <<"dfdsf";
+			//printDict(Dict);
     		outputFile (key, val, Dict);
 			//outputFile (key, val, Dict);
 
     		break;
     	case 9:
-    		clearDict(Dict);
-
     		//Swap Key and Value
     		cout << "Enter a key:";
     		cin >> key;
