@@ -1,0 +1,84 @@
+﻿﻿++ Add a new pair
+mouse:: мышь
+buffallo:: бык
+cat:: кот
+chicken:: петух
+dog:: собака
+dragon:: дракон
+goat:: коза
+horse:: лошадь
+monkey:: обезьяна
+pig:: свинина
+snake:: змея
+tiger:: тигр
+rose: ???
+++ Add a new pair
+mouse:: мышь
+buffallo:: бык
+cat:: кот
+chicken:: петух
+dog:: собака
+dragon:: дракон
+goat:: коза
+horse:: лошадь
+monkey:: обезьяна
+pig:: свинина
+snake:: змея
+tiger:: тигр
+rose: ???
+
+++ Delete an existing pair
+mouse:: мышь
+buffallo:: бык
+cat:: кот
+chicken:: петух
+dog:: собака
+dragon:: дракон
+goat:: коза
+horse:: лошадь
+monkey:: обезьяна
+pig:: свинина
+snake:: змея
+tiger:: тигр
+
+++ This pair was not found
+
+++ Print a list of words that have lenght less than 5
+cat:: кот
+dog:: собака
+goat:: коза
+pig:: свинина
+
+++ Sort Dictionary
+buffallo:: бык
+cat:: кот
+chicken:: петух
+dog:: собака
+dragon:: дракон
+goat:: коза
+horse:: лошадь
+monkey:: обезьяна
+mouse:: мышь
+pig:: свинина
+snake:: змея
+tiger:: тигр
+
+++ Print dictionary
+buffallo:: бык
+cat:: кот
+chicken:: петух
+dog:: собака
+dragon:: дракон
+goat:: коза
+horse:: лошадь
+monkey:: обезьяна
+mouse:: мышь
+pig:: свинина
+snake:: змея
+tiger:: тигр
+
+++ Change a pair
+
+++ Swap Key and Value
+
+++ Clear dictionary

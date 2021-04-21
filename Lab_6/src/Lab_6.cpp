@@ -26,7 +26,7 @@ bool checkPair(string key, vector<Word>& dict);
 void printList(vector<Word>& dict);
 void clearDict(vector<Word>& dict);
 void sortDict(vector<Word>& dict);
-//void printDict(vector<Word>& dict);
+void printDict(vector<Word>& dict);
 void changePair(string key, string newVal, vector<Word>& dict);
 void swapKeyVal(string key, vector<Word>& dict);
 
@@ -76,11 +76,21 @@ bool checkPair(string key, vector<Word>& dict) {
 
 // Выводить список пары, у ключего слова которого есть меньше 5 символов.
 // Print list of words that have lenght less than 5 symbols
-void printList(vector<Word>& dict) {
-    for (int i = 0; i < (int)dict.size(); i++) {
+void printList(string key, string val, vector<Word>& dict) {
+	ofstream file;
+	file.open("output.txt", ios::app);
+	for(int i=0; i < (int)dict.size(); i++){
+		if (dict[i].key.size() <= 5) {
+			file << dict[i].key <<": ";
+			file << dict[i].val << endl;
+		}
+		
+	}
+	file.close();
+    /*for (int i = 0; i < (int)dict.size(); i++) {
         if (dict[i].key.size() < 5)
-            cout << dict[i].key << " => " << dict[i].val << endl;
-    }
+            My << dict[i].key << " => " << dict[i].val << endl;
+    }*/
 }
 
 // Очистить словарь
@@ -94,7 +104,7 @@ void clearDict(vector<Word>& dict) {
 void sortDict(vector<Word>& dict) {
     Word temp;
     for (int i = 0; i < (int)dict.size(); i++) {
-        for(int j=0; j < (int)(dict.size() - 1); j++) {
+        for(int j= 0; j < (int)(dict.size() - 1); j++) {
             if (dict[j].key.compare(dict[j+1].key) > 0) {
                 temp = dict[j];
                 dict[j] = dict[j+1];
@@ -106,13 +116,13 @@ void sortDict(vector<Word>& dict) {
 
 // Выводить весь словарь
 // Print the whole dictionary
-/*void printDict(vector<Word>& dict) {
+void printDict(vector<Word>& dict) {
     for (int i = 0; i < (int)dict.size(); i++)
         cout << dict[i].key << " => " << dict[i].val << endl;
     cout << endl;
 	//outputFile (key, val, Dict);
 
-}*/
+}
 
 // Изменять пары
 // Change the pair
@@ -138,6 +148,7 @@ void swapKeyVal(string key, vector<Word>& dict) {
 		}
 	}
 }
+//
 void outputFile(string key, string val, vector<Word>& dict){
 	ofstream file;
 	file.open("output.txt", ios::app);
@@ -152,7 +163,7 @@ int main() {
 	printHelp();
 	vector<Word> Dict;
 	fstream text;
-	text.open("D:/eclipse-workspace/Lab_6/input.txt");
+	text.open("D:/eclipse-workspace/Lab_6/src/input.txt");
 
 	// Create and open a text file
 	ofstream MyFile("output.txt", ios::app);
@@ -183,8 +194,7 @@ int main() {
     		cout << "Enter a value: ";
     		cin >> val;
     		addNewPair(key, val, Dict);
-
-    		//MyFile << "Add a new pair" << endl;
+    		MyFile << "++ Add a new pair" << endl;
     		outputFile (key, val, Dict);
     		//printDict(Dict);
     		cout << endl;
@@ -192,14 +202,12 @@ int main() {
 
     	case 2:
     		//clearDict(Dict);
-    		// Delete an existing pair
+    		
     		cout << "Enter a key: ";
     		cin >> key;
     		deletePair(key, Dict);
+			MyFile << endl << "++ Delete an existing pair" <<endl;
     		outputFile (key, val, Dict);
-
-    		//printDict(Dict);
-    		cout << endl;
     		break;
     	case 3:
     		//
@@ -207,24 +215,25 @@ int main() {
     		cout << "Enter a key: ";
     		cin >> key;
     		if (checkPair(key, Dict)) {
-    			MyFile << "This pair was found" << endl;
-    			//MyFile.close();
-    		}else{
-    			MyFile << "This pair was not found" <<endl;
-    			//MyFile.close();
+    			MyFile << endl << "++ This word was found" << endl;
+    			
+    		} else {
+    			MyFile << endl << "++ This pair was not found" <<endl;
+    			
     		}
     		break;
     	case 4:
     		//clearDict(Dict);
 
-    		// Print a list of words that have lenght less than 5
-    		printList(Dict);
-    		outputFile (key, val, Dict);
+    		MyFile <<endl << "++ Print a list of words that have lenght less than 5" << endl;
+
+    		printList(key, val, Dict);
+    		
     		break;
     	case 5:
     		//Clear dictionary
     		clearDict(Dict);
-    		//MyFile << "Clear dictionary" <<endl;
+    		MyFile << endl << "++ Clear dictionary" <<endl;
     		outputFile (key, val, Dict);
     		//printDict(Dict);
     		break;
@@ -232,7 +241,7 @@ int main() {
     		//clearDict(Dict);
     		// Sort Dictionary
     		sortDict(Dict);
-    		//MyFile << "Sort Dictionary" <<endl;
+    		MyFile << endl << "++ Sort Dictionary" <<endl;
     		outputFile (key, val, Dict);
     		//printDict(Dict);
     		break;
@@ -240,7 +249,7 @@ int main() {
     		//clearDict(Dict);
     		//Print dictionary
     		//printDict(Dict);
-    		//MyFile << "Print dictionary" <<endl;
+    		MyFile <<endl << "++ Print dictionary" <<endl;
     		outputFile (key, val, Dict);
     		break;
     	case 8:
@@ -251,9 +260,13 @@ int main() {
     		cout << "Enter new value: ";
     		cin >> val;
     		changePair(key,val, Dict);
-    		//MyFile << "Change a pair" <<endl;
+    		MyFile << endl << "++ Change a pair" <<endl;
+			cout << "aaaaa";
+			printDict(Dict);
+			cout <<"dfdsf";
     		outputFile (key, val, Dict);
-    		//printDict(Dict);
+			//outputFile (key, val, Dict);
+
     		break;
     	case 9:
     		clearDict(Dict);
@@ -262,7 +275,8 @@ int main() {
     		cout << "Enter a key:";
     		cin >> key;
     		swapKeyVal(key, Dict);
-    		//MyFile << "Swap Key and Value" <<endl;
+    		MyFile << endl << "++ Swap Key and Value" <<endl;
+			//printDict(Dict);
     		outputFile (key, val, Dict);
     		break;
     	default:
