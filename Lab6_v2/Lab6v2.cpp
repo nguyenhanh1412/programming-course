@@ -2,7 +2,8 @@
 #include <vector>
 #include <fstream>
 #include <string>
-#include <bits/stdc++.h>
+#include <sstream>
+#include <ctime>
 
 using namespace std;
 
@@ -36,12 +37,12 @@ void printHelp() {
     cout << "Enter 9 to swap key and value\n";
 }
 
-//1. Add a new pair into the Dict
+//**1. Add a new pair into the Dict
 void addNewPair(string key, vector<string> val, vector<Word>& dict) {
     Word temp;
     temp.key = key;
     for(int i = 0; i < (int)val.size(); i++){
-        temp.val.push_back(val.at(i));
+        temp.val.push_back(val[i]);
     }
     dict.push_back(temp);
 }
@@ -68,10 +69,10 @@ bool checkPair(string key, vector<Word>& dict) {
     return flag;
 }
 
-//4. Print list
+//**4. Print list
 void printList(string key, vector<string> val, vector<Word>& dict) {
     ofstream file;
-	file.open("output.txt", ios::app);
+	file.open("logFile.txt", ios::app);
 	for(int i=0; i < (int)dict.size(); i++){
 		if (dict[i].key.size() < 5) {
 			file << dict[i].key <<": ";
@@ -103,7 +104,7 @@ void sortDict(vector<Word>& dict) {
 }
 
 //7. Print the whole dictionary
-//8. Change the pair
+//8**. Change the pair
 void changePair(string key, vector<string> newVal, vector<Word>& dict) {
 	for (int i = 0; i < (int)dict.size(); i++) {
 		if (key.compare(dict[i].key) == 0) {
@@ -116,7 +117,7 @@ void changePair(string key, vector<string> newVal, vector<Word>& dict) {
 	}
 }
 
-//9. Swap the key and the value
+//9**. Swap the key and the value
 void swapKeyVal(string key, vector<Word>& dict) {
 	Word temp;
 	for (int i = 0; i < (int)dict.size(); i++) {
@@ -132,7 +133,7 @@ void swapKeyVal(string key, vector<Word>& dict) {
 	}
 }
 
-//Split string
+//**Split string
 void splitString (string str, vector<string>& lineArr){
      istringstream ss(str);
      string temp;
@@ -140,10 +141,10 @@ void splitString (string str, vector<string>& lineArr){
          lineArr.push_back(temp);
     }
 }
-
-void outputFile(vector<Word>& dict){
+//Get path file dictionary
+void dicFile(vector<Word>& dict, char* dic_Path){
 	ofstream file;
-	file.open("output.txt", ios::app);
+	file.open(dic_Path);
 	for(int i=0; i < (int)dict.size(); i++){
 		file << dict[i].key <<": ";
         for(int j = 0; j < dict[i].val.size(); j++){
@@ -156,23 +157,40 @@ void outputFile(vector<Word>& dict){
 
 }
 
+//Log file
+void logFile(string text){
+    ofstream logFile;
+	logFile.open("logFile.txt", ios::app);
+    time_t now = time(0);
+    tm* time = localtime(&now);   
+    logFile << time->tm_mday << "/" << 1 + time->tm_mon << "/" << 1990 + time->tm_year << "\t" << time->tm_hour << ":" << time->tm_min << ":" << time->tm_sec << "\t" << text;
+	logFile << endl;
+    logFile.close();
+}
+
 
 int main() {
     printHelp();
     vector<Word> Dict;
 	fstream textIn;
-	textIn.open("D:/C++/Lab6_v2/input.txt");
+    //Get path file input
+    char* path = new char[255];
+    cout<< "Get Containing Folder: ";
+    cin.getline(path, 255);
+	textIn.open(path);
 
-	// Create and open a text file
-	ofstream textOut("output.txt", ios::app);
-	//MyFile.open("output.txt", ios::app);
-	//string line;
+	//Create and open a text file
+    char* dic_Path = new char[255];
+    cout<< "Get Dictionary Path: ";
+    cin.getline(dic_Path, 255);
+
 	string key;
 	vector<string> val;
     string input;
     vector<string> lineArr;
     string str;
     while(!textIn.eof()){
+        //взять данные из файл по строке
         getline(textIn, input);
         //cout << input << endl;
         splitString(input, lineArr);
@@ -191,10 +209,10 @@ int main() {
     	cout << "\nEnter your choice: ";
     	cin >> choice;
 
+        //**
     	switch(choice) {
-    	case 1:
+        case 1:
     		//Add a new pair
-            textOut << "Add a new word" << endl;
             cin.ignore();
     		cout << "Enter a key: ";
     		getline(cin, key);
@@ -202,54 +220,58 @@ int main() {
             getline(cin, str);
             splitString(str, lineArr);
     		addNewPair(key, lineArr, Dict);
-            outputFile(Dict);
+            dicFile(Dict, dic_Path);
+            logFile("Add new word - " + key + ": "+ str) ;
             lineArr.clear();
 
     		break;
         case 2:
     		//clearDict(Dict);
-    		textOut << "Clear a word" << endl;
     		cout << "Enter a key: ";
     		cin >> key;
     		deletePair(key, Dict);
-    		outputFile (Dict);
+    		dicFile (Dict, dic_Path);
+            logFile("Clear word - " + key);
+
     		break;
         case 3:
     		// Cheking a pair
     		cout << "Enter a key: ";
     		cin >> key;
+            logFile("Cheking word - " + key);
     		if (checkPair(key, Dict)) {
-    			textOut << "This word was found" << endl << "----------------------------------------" <<endl;
+    			logFile ("This word was found");
     			
     		} else {
-    			textOut <<"This pair was not found" <<endl<< "----------------------------------------" <<endl;
+    			logFile ("This pair was not found");
     			
     		}
+            
     		break;
 
         case 4:
-    		//clearDict(Dict);
-            textOut << "Print a list of words that have lenght less than 5" << endl;
+    		//;
+            logFile("Print a list of words that have lenght less than 5");
     		printList(key, val, Dict);
     		
     		break;
         case 5:
     		//Clear dictionary
     		clearDict(Dict);
-    		textOut << "Clear dictionary" <<endl;
-    		outputFile (Dict);
+    		dicFile (Dict, dic_Path);
+    		logFile("Clear dictionary");
     		break;
         case 6:
             sortDict(Dict); 
-            textOut << "Sort dictionary";
-            outputFile (Dict);
+            dicFile (Dict, dic_Path);
+            logFile("Sort dictionary");
+            break;
         case 7:
-            textOut << "Whole dictionary" <<endl;
-            outputFile (Dict);
+            dicFile (Dict, dic_Path);
+            logFile("Whole dictionary");
             break;
         case 8:
     		//Change a pair
-            textOut << "Change a word" <<endl;
             cin.ignore();
     		cout << "Enter a key: ";
     		getline(cin, key);
@@ -257,16 +279,17 @@ int main() {
             getline(cin, str);
             splitString(str, lineArr);
     		changePair(key, lineArr, Dict);
-            outputFile (Dict);
+            logFile("Change word -" + key + ": " + str);
+            dicFile (Dict, dic_Path);
     		break;
 
         case 9:
     		//Swap Key and Value
-            textOut << "Swap a word" <<endl;
     		cout << "Enter a key:";
     		cin >> key;
     		swapKeyVal(key, Dict);
-    		outputFile (Dict);
+    		dicFile (Dict, dic_Path);
+            logFile("Swap word - " + key);
     		break;
         default:
             break;
