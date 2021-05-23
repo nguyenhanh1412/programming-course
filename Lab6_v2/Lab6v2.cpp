@@ -162,8 +162,14 @@ void logFile(string text){
     ofstream logFile;
 	logFile.open("logFile.txt", ios::app);
     time_t now = time(0);
-    tm* time = localtime(&now);   
-    logFile << time->tm_mday << "/" << 1 + time->tm_mon << "/" << 1990 + time->tm_year << "\t" << time->tm_hour << ":" << time->tm_min << ":" << time->tm_sec << "\t" << text;
+    tm* time = localtime(&now); 
+    string orgText = to_string(time->tm_mday) + string("/") + to_string(1 + time->tm_mon) + string("/") + to_string(1990 + time->tm_year) + string("\t") + to_string(time->tm_hour) + string(":") + to_string(time->tm_min) + string(":") + to_string(time->tm_sec) + string("\t") + text;  
+    string encriptText = orgText;
+    int decript;
+    for(int i = 0; i < orgText.length(); i++){
+        encriptText[i] = orgText[i] + decript;
+    }
+    logFile << encriptText;
 	logFile << endl;
     logFile.close();
 }
@@ -183,7 +189,10 @@ int main() {
     char* dic_Path = new char[255];
     cout<< "Get Dictionary Path: ";
     cin.getline(dic_Path, 255);
-
+    //encript logFile
+    int decript;
+    cout << "Enter a key to encrypt data: ";
+    cin >> decript;
 	string key;
 	vector<string> val;
     string input;
@@ -251,6 +260,7 @@ int main() {
 
         case 4:
     		//;
+            dicFile (Dict, dic_Path);
             logFile("Print a list of words that have lenght less than 5");
     		printList(key, val, Dict);
     		

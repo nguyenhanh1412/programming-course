@@ -5,7 +5,6 @@
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================
-
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -115,7 +114,7 @@ void sortDict(vector<Word>& dict) {
 }
 
 // Выводить весь словарь
-// Print the whole dictionary
+// 
 void printDict(vector<Word>& dict) {
     for (int i = 0; i < (int)dict.size(); i++)
         cout << dict[i].key << " => " << dict[i].val << endl;
@@ -282,3 +281,8 @@ int main() {
 
     return 0;
 }
+
+
+
+
+

@@ -1,11 +1,12 @@
-mouse: мышь 
 buffallo: бык 
+cat: кот 
 chicken: петух 
 dog: собака 
 dragon: дракон 
 goat: коза 
 horse: лошадь 
 monkey: обезьяна 
+mouse: мышь 
 pig: свинина 
 snake: змея 
 tiger: тигр 
